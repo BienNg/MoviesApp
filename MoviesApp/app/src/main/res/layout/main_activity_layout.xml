@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:background="@color/black"
     tools:context="nhibien.nguyen.moviesapp.MainActivity">
 
     <android.support.v7.widget.RecyclerView

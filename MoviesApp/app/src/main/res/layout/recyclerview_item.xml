@@ -2,30 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/item_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="true"
-        android:layout_weight="3"/>
+              android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/item_date"
+        android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_gravity="top|start"
-        android:layout_weight="1"
-        android:text="Text..."/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:text="Title"/>
     <TextView
         android:id="@+id/item_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|start"
-        android:layout_weight="1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
         android:ellipsize="end"
         android:maxLines="5"
-        android:text="Mehr Text..."/>
+        android:textSize="15dp"
+        android:text="Beschreibung"/>
 </LinearLayout>
