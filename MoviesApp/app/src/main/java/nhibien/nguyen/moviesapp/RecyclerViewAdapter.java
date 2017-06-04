@@ -2,11 +2,17 @@ package nhibien.nguyen.moviesapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,14 +32,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     //Defining the ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        //DECL. VIEWS of the item
         private TextView titleTextView;
         private TextView descriptionTextView;
         private TextView firstLetterTextView;
+        private ImageView seenIcon;
         public ViewHolder(View itemview){
             super(itemview);
+            //GET VIEWS of the LAYOUT
             titleTextView = (TextView) itemview.findViewById(R.id.item_title);
             descriptionTextView = (TextView) itemview.findViewById(R.id.item_description);
             firstLetterTextView = (TextView) itemview.findViewById(R.id.item_first_letter);
+            seenIcon = (ImageView) itemview.findViewById(R.id.item_seen_image);
         }
     }
 
@@ -86,20 +96,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      */
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
+        //GET THE MOVIE for this position
         Movie movie = moviesList.get(position);
 
-        //set items
+        //Init. Views of the item
         TextView firstLetterTextView = holder.firstLetterTextView;
         TextView titleTextView = holder.titleTextView;
         TextView descriptionTextView = holder.descriptionTextView;
+        ImageView seenIcon = holder.seenIcon;
 
-        //set text of item
+        //Set TEXT of the ITEMS
         titleTextView.setText(movie.getTitle());
         if(movie.getStudio() != null){
             descriptionTextView.setText(movie.getStudio());
         }
 
-        //Set visibility of the first letters on the left
+        //Set visibility of the FIRST LETTERS on the left
         firstLetterTextView.setVisibility(View.INVISIBLE);
         if(position != 0){
             //if the last title had a different first letter, this firstLetterTextView should be visible
@@ -110,6 +122,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }else{
             firstLetterTextView.setVisibility(View.VISIBLE);
             firstLetterTextView.setText(movie.getTitle().substring(0,1).toUpperCase());
+        }
+
+        //Set COLOR of the SEEN-ICON
+        if(movie.getSeen() == true){
+            seenIcon.setImageResource(R.drawable.ic_check_green_24dp);
         }
     }
 
