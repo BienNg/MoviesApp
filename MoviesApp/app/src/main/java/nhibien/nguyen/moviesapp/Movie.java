@@ -1,38 +1,43 @@
 package nhibien.nguyen.moviesapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by bien on 27.05.2017.
  */
 
-public class Movie {
+public class Movie implements Serializable{
     private String title;
-    private ArrayList actorsList;
-    private String director;
+    private ArrayList<Person> actorsList;
+    private Person director;
     private String studio;
+    private boolean seen;
 
     //Constructor
     public Movie(String title){
         this.title = title;
+        seen = false;
     }
 
     public void setTitle(String title){
         this.title = title;
     }
-    public void addActors(String actor){
+    public void addActors(Person actor){
         actorsList.add(actor);
     }
-    public void setDirector(String director){
+    public void setDirector(Person director){
         this.director = director;
     }
     public void setStudio(String studio){
         this.studio = studio;
     }
+    public void setSeenTrue(){this.seen = true;}
+    public void setSeenFalse(){this.seen = false;}
     public String getTitle(){
         return title;
     }
-    public String getDirector(){
+    public Person getDirector(){
         if(director != null){
             return director;
         }
@@ -50,4 +55,5 @@ public class Movie {
     public ArrayList getActorsList(){
         return actorsList;
     }
+    public boolean getSeen(){return seen;}
 }

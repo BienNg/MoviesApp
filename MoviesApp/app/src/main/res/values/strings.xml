@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MoviesApp</string>
     <string name="action_search">Search...</string>
+    <string name="genre">Genre</string>
+    <string name="release">Release</string>
+    <string name="distributed_by">Distributed by</string>
 </resources>

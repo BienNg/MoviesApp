@@ -1,6 +1,7 @@
 package nhibien.nguyen.moviesapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.logging.Filter;
 
 /**
- * Created by bien on 23.05.2017.
+ * Adapter Class for the RecyclerView in the ActivityMain
  */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -24,7 +25,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context context;
 
     //Defining the ViewHolder
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView titleTextView;
         private TextView descriptionTextView;
         private TextView firstLetterTextView;
@@ -48,22 +49,41 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     /*
-     * Extending Methods
+     * Extending Method From RecyclerView Adapter 1/2
      */
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        final Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         //Inflate the costum Layout
-        View movieView = inflater.inflate(R.layout.recyclerview_item, parent, false);
+        final View movieView = inflater.inflate(R.layout.recyclerview_item, parent, false);
 
         //Return a new Holder instance
-        ViewHolder viewHolder = new ViewHolder(movieView);
+        final ViewHolder viewHolder = new ViewHolder(movieView);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Get position
+                int position = viewHolder.getAdapterPosition();
+                //Get the movie
+                Movie movie = moviesList.get(position);
+                //Check if an item was deleted
+                if(position != RecyclerView.NO_POSITION){
+                    Intent intent = new Intent(context, ActivityMovieDetails.class);
+                    intent.putExtra("MOVIE", movie);
+                    context.startActivity(intent);
+                }
+            }
+        });
 
         return viewHolder;
     }
 
+    /*
+     * Extending Method From RecyclerView Adapter 2/2
+     */
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
         Movie movie = moviesList.get(position);
