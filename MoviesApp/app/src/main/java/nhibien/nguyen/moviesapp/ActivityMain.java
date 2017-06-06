@@ -10,6 +10,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,10 +22,10 @@ import java.util.Comparator;
 public class ActivityMain extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     //Content of the RecyclerView
-    ArrayList<Movie> moviesList;
+    private static ArrayList<Movie> moviesList;
 
     //RecyclerView Adapter
-    RecyclerViewAdapter adapter;
+    private RecyclerViewAdapter adapter;
 
     //STATE of the ADD-BUTTON
     private boolean allList = false;
@@ -158,17 +159,45 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
         mainRecyclerView.setHasFixedSize(true);
     }
 
-    private ArrayList currentListIsAll(boolean b){
-        if(b){
+    private ArrayList currentListIsAll(boolean yes){
+        if(yes){
             return moviesList;
         }else{
             ArrayList<Movie> newList = new ArrayList<>();
             for(Movie m : moviesList){
-                if(m.getSeen()) {
+                if(m.isSeen()) {
                     newList.add(m);
                 }
             }
                 return newList;
         }
     }
+
+    /**
+     * Updates a Movie in the List
+     * @param movie
+     * @param context
+     */
+    public static void updatedMovie(Movie movie, Context context){
+        int index = -1;
+
+        //Find index of the movie
+        for(Movie m : moviesList){
+            if(m.getTitle().equals(movie.getTitle())){
+                index = moviesList.indexOf(m);
+                break;
+            }
+        }
+        moviesList.set(index,movie);
+        Toast.makeText(context,moviesList.get(index).isSeen() + " added ", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateRecyclerView(moviesList);
+    }
+
 }
+
+//--TODO-- BUG: While searching through all movies, unseen movies have green check icons

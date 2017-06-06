@@ -2,22 +2,15 @@ package nhibien.nguyen.moviesapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Filter;
 
 /**
  * Adapter Class for the RecyclerView in the ActivityMain
@@ -125,7 +118,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         //Set COLOR of the SEEN-ICON
-        if(movie.getSeen() == true){
+        if(movie.isSeen() == true){
             seenIcon.setImageResource(R.drawable.ic_check_green_24dp);
         }
     }

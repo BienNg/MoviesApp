@@ -55,5 +55,5 @@ public class Movie implements Serializable{
     public ArrayList getActorsList(){
         return actorsList;
     }
-    public boolean getSeen(){return seen;}
+    public boolean isSeen(){return seen;}
 }
