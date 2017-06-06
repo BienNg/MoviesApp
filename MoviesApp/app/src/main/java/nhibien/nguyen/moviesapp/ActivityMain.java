@@ -21,14 +21,10 @@ import java.util.Comparator;
 public class ActivityMain extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     //Content of the RecyclerView
-    ArrayList<Movie> myMoviesList;
-    ArrayList<Movie> allMoviesList;
+    ArrayList<Movie> moviesList;
 
     //RecyclerView Adapter
     RecyclerViewAdapter adapter;
-
-    //Context for the RecyclerView
-    Context mContext = this;
 
     //STATE of the ADD-BUTTON
     private boolean allList = false;
@@ -38,23 +34,18 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_layout);
 
-        //Add movies to myMoviesList
-        myMoviesList = new ArrayList<>();
-        myMoviesList.add(new Movie("bbb"));
-        myMoviesList.add(new Movie("aab"));
-        myMoviesList.add(new Movie("aaac"));
-        for(Movie m : myMoviesList){
-            m.setSeenTrue();
+        //Add movies to moviesList
+        moviesList = new ArrayList<>();
+        moviesList.add(new Movie("bbb"));
+        moviesList.add(new Movie("aab"));
+        moviesList.add(new Movie("aaac"));
+        moviesList.add(new Movie("nba"));
+        moviesList.add(new Movie("xfactor"));
+        moviesList.add(new Movie("x-men"));
+        moviesList.add(new Movie("zombieland"));
+        for(int i = 0; i<4 ; i++){
+            moviesList.get(i).setSeenTrue();
         }
-        //Add movies to allMoviesList
-        allMoviesList = new ArrayList<>();
-        allMoviesList.add(new Movie("bbb"));
-        allMoviesList.add(new Movie("aab"));
-        allMoviesList.add(new Movie("aaac"));
-        allMoviesList.add(new Movie("nba"));
-        allMoviesList.add(new Movie("xfactor"));
-        allMoviesList.add(new Movie("x-men"));
-        allMoviesList.add(new Movie("zombieland"));
 
 
         /**
@@ -64,7 +55,7 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
         setSupportActionBar(toolbar);
 
         //Create the RecyclerView
-        updateRecyclerView(myMoviesList);
+        updateRecyclerView(moviesList);
     }
 
     /**
@@ -86,17 +77,18 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
         searchView.setOnQueryTextListener(this);
 
         //Set onClickListener for the add Button
-        //It changes myMoviesList to allMoviesList
+        //It changes moviesList to allMoviesList
         item_add.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 allList = !allList;
                 if(allList){
                     item.setIcon(R.drawable.ic_file_download_grey_24dp);
-                    updateRecyclerView(allMoviesList);
+                    updateRecyclerView(moviesList);
                 }else{
                     item.setIcon(R.drawable.ic_add_grey_24dp);
-                    updateRecyclerView(myMoviesList);
+                    ArrayList<Movie> currentList = currentListIsAll(false);
+                    updateRecyclerView(currentList);
                 }
 
                 return true;
@@ -122,7 +114,13 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
     public boolean onQueryTextChange(String newText) {
         newText = newText.toLowerCase();
         ArrayList<Movie> newList = new ArrayList<>();
-        for(Movie movie: myMoviesList){
+        ArrayList<Movie> currentList;
+        if(allList == true){
+            currentList = moviesList;
+        }else{
+            currentList = currentListIsAll(false);
+        }
+        for(Movie movie: currentList){
             String name = movie.getTitle();
             if(name.contains(newText)){
                 newList.add(movie);
@@ -135,23 +133,42 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
     /**
      * Change content of the RecyclerView
      */
-    private void updateRecyclerView(ArrayList newList){
-        //Sort the myMoviesList in alphabetical order
-        Collections.sort(newList, new Comparator<Movie>() {
+    private void updateRecyclerView(ArrayList moviesList){
+        //Sort the moviesList in alphabetical order
+        Collections.sort(moviesList, new Comparator<Movie>() {
             @Override
             public int compare(Movie o1, Movie o2) {
                 return o1.getTitle().compareToIgnoreCase(o2.getTitle());
             }
         });
+
+        if(!allList){
+            ArrayList<Movie> currentList = currentListIsAll(false);
+            moviesList = currentList;
+        }
         /**
          * Setup Recyclerview
          */
         //Create adapter passing the items to the RecyclerView
-        adapter = new RecyclerViewAdapter(this, newList);
+        adapter = new RecyclerViewAdapter(this, moviesList);
         //Lookup RecyclerView in the Layout
         RecyclerView mainRecyclerView = (RecyclerView)findViewById(R.id.main_recycler_view);
         mainRecyclerView.setAdapter(adapter);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mainRecyclerView.setHasFixedSize(true);
+    }
+
+    private ArrayList currentListIsAll(boolean b){
+        if(b){
+            return moviesList;
+        }else{
+            ArrayList<Movie> newList = new ArrayList<>();
+            for(Movie m : moviesList){
+                if(m.getSeen()) {
+                    newList.add(m);
+                }
+            }
+                return newList;
+        }
     }
 }
