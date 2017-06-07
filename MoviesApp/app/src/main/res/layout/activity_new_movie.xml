@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    tools:context="nhibien.nguyen.moviesapp.ActivityNewMovie">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/nm_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_image_grey_24dp"/>
+
+        <EditText
+            android:id="@+id/nm_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/nm_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Release Date"/>
+
+    <EditText
+        android:id="@+id/nm_genres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Genres"/>
+    <EditText
+        android:id="@+id/nm_actors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Actors"/>
+
+    <EditText
+        android:id="@+id/nm_director"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Director"/>
+
+
+    <EditText
+        android:id="@+id/nm_studio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Studio"/>
+</LinearLayout>

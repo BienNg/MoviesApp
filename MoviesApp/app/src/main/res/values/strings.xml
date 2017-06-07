@@ -5,4 +5,5 @@
     <string name="release">Release</string>
     <string name="distributed_by">Distributed by</string>
     <string name="add_movie">Add title</string>
+    <string name="title">Title</string>
 </resources>

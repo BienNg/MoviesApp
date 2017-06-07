@@ -2,6 +2,7 @@ package nhibien.nguyen.moviesapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,6 +121,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //Set COLOR of the SEEN-ICON
         if(movie.isSeen() == true){
             seenIcon.setImageResource(R.drawable.ic_check_green_24dp);
+        }else{
+            seenIcon.setImageResource(R.drawable.ic_check_24dp);
         }
     }
 

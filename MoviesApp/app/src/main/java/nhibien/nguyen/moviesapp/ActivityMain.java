@@ -10,7 +10,8 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity_layout);
+        setContentView(R.layout.activity_main);
 
         //Add movies to moviesList
         moviesList = new ArrayList<>();
@@ -57,6 +58,15 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
 
         //Create the RecyclerView
         updateRecyclerView(moviesList);
+
+        //Setup the ADD NEW MOVIE BUTTON
+        Button bttnAddNewMovie = (Button) findViewById(R.id.main_add_new_movie);
+        bttnAddNewMovie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //--TODO-- START NEW ACTIVITY THAT ADDS A NEW MOVIE
+            }
+        });
     }
 
     /**
@@ -150,6 +160,7 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
         /**
          * Setup Recyclerview
          */
+
         //Create adapter passing the items to the RecyclerView
         adapter = new RecyclerViewAdapter(this, moviesList);
         //Lookup RecyclerView in the Layout
@@ -189,7 +200,6 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
             }
         }
         moviesList.set(index,movie);
-        Toast.makeText(context,moviesList.get(index).isSeen() + " added ", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -199,5 +209,3 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
     }
 
 }
-
-//--TODO-- BUG: While searching through all movies, unseen movies have green check icons

@@ -15,10 +15,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityMovieDetails"
+        <activity
+            android:name=".ActivityMovieDetails"
             android:parentActivityName=".ActivityMain"
             android:theme="@style/AppTheme2">
-
+        </activity>
+        <activity android:name=".ActivityNewMovie"
+                  android:parentActivityName=".ActivityMain"
+                  android:theme="@style/AppTheme2">
         </activity>
     </application>
 

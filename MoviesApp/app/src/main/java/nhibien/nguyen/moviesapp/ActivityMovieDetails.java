@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -20,7 +21,7 @@ public class ActivityMovieDetails extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.movie_details_activity);
+        setContentView(R.layout.activity_movie_details);
 
         Intent intent = getIntent();
 
@@ -56,6 +57,12 @@ public class ActivityMovieDetails extends AppCompatActivity{
                     item.setIcon(R.drawable.ic_eye_24dp);
                     movie.setSeenTrue();
                     ActivityMain.updatedMovie(movie, mContext);
+                    Toast.makeText(mContext, movie.getTitle() + " added", Toast.LENGTH_SHORT).show();
+                }else{
+                    item.setIcon(R.drawable.ic_add_grey_24dp);
+                    movie.setSeenFalse();
+                    ActivityMain.updatedMovie(movie, mContext);
+                    Toast.makeText(mContext, movie.getTitle() + " removed", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
