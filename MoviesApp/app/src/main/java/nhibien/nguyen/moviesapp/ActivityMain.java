@@ -1,6 +1,7 @@
 package nhibien.nguyen.moviesapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,8 +30,17 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
     //RecyclerView Adapter
     private RecyclerViewAdapter adapter;
 
-    //STATE of the ADD-BUTTON
+    //STATE for the ADD-MENU-ITEM
     private boolean allList = false;
+
+    //Strings
+    private String query = "";
+
+    //Buttons
+    Button bttnAddNewMovie;
+
+    //Context
+    Context mContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +71,13 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
         updateRecyclerView(moviesList);
 
         //Setup the ADD NEW MOVIE BUTTON
-        Button bttnAddNewMovie = (Button) findViewById(R.id.main_add_new_movie);
+        bttnAddNewMovie = (Button) findViewById(R.id.main_add_new_movie_bttn);
         bttnAddNewMovie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //--TODO-- START NEW ACTIVITY THAT ADDS A NEW MOVIE
+                Intent intent = new Intent(mContext, ActivityNewMovie.class);
+                intent.putExtra("TITLE", query);
+                startActivity(intent);
             }
         });
     }
@@ -96,10 +109,17 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
                 if(allList){
                     item.setIcon(R.drawable.ic_file_download_grey_24dp);
                     updateRecyclerView(moviesList);
+
+                    //Set the VISIBILITY of ADD NEW MOVIE to VISIBLE
+                    bttnAddNewMovie.setVisibility(View.VISIBLE);
+
                 }else{
                     item.setIcon(R.drawable.ic_add_grey_24dp);
                     ArrayList<Movie> currentList = currentListIsAll(false);
                     updateRecyclerView(currentList);
+
+                    //Set the VISIBILITY of ADD NEW MOVIE to INVISIBLE
+                    bttnAddNewMovie.setVisibility(View.INVISIBLE);
                 }
 
                 return true;
@@ -123,6 +143,7 @@ public class ActivityMain extends AppCompatActivity implements SearchView.OnQuer
      */
     @Override
     public boolean onQueryTextChange(String newText) {
+        query = newText;
         newText = newText.toLowerCase();
         ArrayList<Movie> newList = new ArrayList<>();
         ArrayList<Movie> currentList;
